@@ -4,14 +4,13 @@
       <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
     </template>
 
-    <v-card-title>{{ product.description1 }}</v-card-title>
+    <v-card-title>{{ order.orderName }}</v-card-title>
 
     <v-card-text>
-      <div class="my-4 text-subtitle-1">$ {{ product.price?.price?.price }}</div>
+      <div class="my-4 text-subtitle-1">$ {{ order.details.reduce((acc, detail) => acc + detail.price, 0) }}</div>
       <v-row>
-        <v-chip v-for="category in product.categories" :key="category.id" class="mr-6">
-          <v-avatar left v-if="category.pictureUrl"><v-img :src="category.pictureUrl"></v-img></v-avatar>
-          {{ category.name }}
+        <v-chip class="mr-6">
+          {{ new Date(order.orderDate).toLocaleString() }}
         </v-chip>
       </v-row>
     </v-card-text>
@@ -19,9 +18,9 @@
 </template>
 <script>
 export default {
-  name: 'ProductCard',
+  name: 'OrderCard',
   props: {
-    product: {
+    order: {
       type: Object,
       required: true,
     },
